@@ -116,7 +116,7 @@ const star4Need = computed({
       Star Rail Level Up Calculator
     </h1>
 
-    <select v-model="level" class="mt-4 block w-full">
+    <select v-model="level" class="mt-4 block w-full text-gray-900">
       <option v-for="(level, index) in levels" :key="index" :value="index">
         {{ `${level.name} (${level.exp} EXP)` }}
       </option>
@@ -129,19 +129,19 @@ const star4Need = computed({
         <img src="./assets/img/star-4-travelers-guide.png"
           alt="Traveler's Guide" class="p-2" />
         <input type="number" min="0" v-model="star4"
-          class="block w-full text-gray-900" />
+          class="block w-full text-gray-900 text-center" />
       </div>
       <div class="flex-1">
         <img src="./assets/img/star-3-adventure-log.png"
           alt="Adventure Log" class="p-2" />
         <input type="number" min="0" v-model="star3"
-          class="block w-full text-gray-900" />
+          class="block w-full text-gray-900 text-center" />
       </div>
       <div class="flex-1">
         <img src="./assets/img/star-2-travel-encounters.png"
           alt="Travel Encounters" class="p-2" />
         <input type="number" min="0" v-model="star2"
-          class="block w-full text-gray-900" />
+          class="block w-full text-gray-900 text-center" />
       </div>
     </div>
 
@@ -153,8 +153,8 @@ const star4Need = computed({
           alt="Traveler's Guide" class="p-2" />
         <input type="number" min="0"
           :disabled="!useCustomStar4" v-model="star4Need"
-          :class="['block w-full border-2 font-semibold',
-          star4Need > star4 ? 'text-red-600' : 'text-gray-900',
+          :class="['block w-full border-2 font-semibold text-center',
+          star4Need > star4 ? 'text-red-600' : 'text-purple-600',
           useCustomStar4 ? 'bg-white' : 'border-purple-600 bg-purple-100']" />
       </div>
       <div class="flex-1">
@@ -162,16 +162,16 @@ const star4Need = computed({
           alt="Adventure Log" class="p-2" />
         <input type="number" min="0" disabled v-model="star3Need"
         :class="['block w-full border-2 border-purple-600',
-        'bg-purple-100 font-semibold',
-        star3Need > star3 ? 'text-red-600' : 'text-gray-900']" />
+        'bg-purple-100 font-semibold text-center',
+        star3Need > star3 ? 'text-red-600' : 'text-purple-600']" />
       </div>
       <div class="flex-1">
         <img src="./assets/img/star-2-travel-encounters.png"
           alt="Travel Encounters" class="p-2" />
         <input type="number" min="0" disabled v-model="star2Need"
           :class="['block w-full border-2 border-purple-600',
-          'bg-purple-100 font-semibold',
-          star2Need > star2 ? 'text-red-600' : 'text-gray-900']" />
+          'bg-purple-100 font-semibold text-center',
+          star2Need > star2 ? 'text-red-600' : 'text-purple-600']" />
       </div>
     </div>
 
