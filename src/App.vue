@@ -28,7 +28,7 @@ const levels = [
   },
   {
     name: 'Level 40 to 50',
-    exp: 289390,
+    exp: 389390,
   },
   {
     name: 'Level 50 to 60',
