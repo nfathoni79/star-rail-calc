@@ -3,10 +3,12 @@ import { ref, computed } from 'vue'
 
 import chLevels from './data/characterLevels'
 import lcLevels from './data/lightConeLevels'
+import gChLevels from './data/genshinCharacterLevels'
 import chMaterials from './data/characterMaterials'
 import lcMaterials from './data/lightConeMaterials'
+import gChMaterials from './data/genshinCharacterMaterials'
 
-const modes = ['Character', 'Light Cone']
+const modes = ['Character', 'Light Cone', 'Genshin']
 
 /**
  * Use ratio for the amount of materials needed or default.
@@ -36,7 +38,7 @@ const useCustomStar2 = ref(false)
 /**
  * Selected Light Cone star.
  */
-const lcStar = ref(3)
+const lcStar = ref(5)
 
 /**
  * Index of selected level.
@@ -66,27 +68,48 @@ const customStar2Need = ref(null)
  * Exp of a 4-star material (Character or Light Cone).
  */
 const star4Exp = computed(() => {
-  if (modeIndex.value == 0) return chMaterials[0].exp 
-
-  return lcMaterials[0].exp
+  switch (modeIndex.value) {
+    case 0:
+      return chMaterials[0].exp
+    case 1:
+      return lcMaterials[0].exp
+    case 2:
+      return gChMaterials[0].exp
+    default:
+      return chMaterials[0].exp
+  }
 })
 
 /**
  * Exp of a 3-star material (Character or Light Cone).
  */
 const star3Exp = computed(() => {
-  if (modeIndex.value == 0) return chMaterials[1].exp 
-
-  return lcMaterials[1].exp
+  switch (modeIndex.value) {
+    case 0:
+      return chMaterials[1].exp
+    case 1:
+      return lcMaterials[1].exp
+    case 2:
+      return gChMaterials[1].exp
+    default:
+      return chMaterials[1].exp
+  }
 })
 
 /**
  * Exp of a 2-star material (Character or Light Cone).
  */
 const star2Exp = computed(() => {
-  if (modeIndex.value == 0) return chMaterials[2].exp 
-
-  return lcMaterials[2].exp
+  switch (modeIndex.value) {
+    case 0:
+      return chMaterials[2].exp
+    case 1:
+      return lcMaterials[2].exp
+    case 2:
+      return gChMaterials[2].exp
+    default:
+      return chMaterials[2].exp
+  }
 })
 
 /**
@@ -103,6 +126,8 @@ const levels = computed(() => {
       }
     })
   }
+
+  if (modeIndex.value == 2) return gChLevels
 })
 
 /**
@@ -287,7 +312,16 @@ const resetCustom = () => {
  * @param {Number} index Index of material.
  */
 const getImage = (index) => {
-  return modeIndex.value == 0 ? chMaterials[index].image : lcMaterials[index].image
+  switch (modeIndex.value) {
+    case 0:
+      return chMaterials[index].image
+    case 1:
+      return lcMaterials[index].image
+    case 2:
+      return gChMaterials[index].image
+    default:
+      return chMaterials[index].image
+  }
 }
 
 /**
@@ -295,7 +329,16 @@ const getImage = (index) => {
  * @param {Number} index 
  */
 const getImageName = (index) => {
-  return modeIndex.value == 0 ? chMaterials[index].name : lcMaterials[index].name
+  switch (modeIndex.value) {
+    case 0:
+      return chMaterials[index].name
+    case 1:
+      return lcMaterials[index].name
+    case 2:
+      return gChMaterials[index].name
+    default:
+      return chMaterials[index].name
+  }
 }
 </script>
 
@@ -319,9 +362,9 @@ const getImageName = (index) => {
     <div class="mt-4">
       <select v-if="modeIndex == 1" v-model="lcStar"
         class="block w-full text-gray-800">
-        <option value="3">3-Star Light Cone</option>
-        <option value="4">4-Star Light Cone</option>
         <option value="5">5-Star Light Cone</option>
+        <option value="4">4-Star Light Cone</option>
+        <option value="3">3-Star Light Cone</option>
       </select>
 
       <select v-model="levelIndex" @change="resetCustom()"
@@ -334,12 +377,14 @@ const getImageName = (index) => {
 
     <label class="mt-2 block">
       <input type="checkbox" v-model="useRatio" />
-      <span class="ml-2 text-gray-900">With ratio</span>
+      <span class="ml-2 text-gray-900">Use proportion</span>
     </label>
 
     <!-- Materials Ratio -->
     <div v-if="useRatio" class="mt-8">
-      <h2 class="text-xl font-semibold text-gray-900">Materials Ratio</h2>
+      <h2 class="text-xl font-semibold text-gray-900">
+        Materials Proportion
+      </h2>
 
       <div class="mt-2 flex items-center gap-2">
         <div class="flex-1">
